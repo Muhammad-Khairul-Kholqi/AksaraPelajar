@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-             $table->bigIncrements('user_id');
-            $table->string('username');
-            $table->string('password');
-            $table->enum('role', ['Guru', 'Murid']);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+        Schema::create('penilaian', function (Blueprint $table) {
+            $table->bigIncrements('penilaian_id');
+            $table->unsignedBigInteger('pengumpulan_id');
+            $table->float('nilai');
             $table->timestamps();
+
+            $table->foreign('pengumpulan_id')->references('pengumpulan_id')->on('pengumpulan');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('penilaian');
     }
 };
